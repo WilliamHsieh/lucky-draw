@@ -4,7 +4,7 @@ import {
   setData,
   resultField,
   newLotteryField,
-  listField
+  listField,
 } from '@/helper/index';
 
 Vue.use(Vuex);
@@ -14,21 +14,21 @@ export default new Vuex.Store({
     config: {
       name: '年会抽奖',
       number: 70,
-      firstPrize: 1
+      firstPrize: 1,
     },
     result: {
-      firstPrize: []
+      firstPrize: [],
     },
     newLottery: [],
     list: [],
-    photos: []
+    photos: [],
   },
   mutations: {
     setClearConfig(state) {
       state.config = {
         name: '年会抽奖',
         number: 70,
-        firstPrize: 1
+        firstPrize: 1,
       };
       state.newLottery = [];
     },
@@ -40,17 +40,17 @@ export default new Vuex.Store({
     },
     setClearResult(state) {
       state.result = {
-        firstPrize: []
+        firstPrize: [],
       };
     },
     setClearStore(state) {
       state.config = {
         name: '年会抽奖',
         number: 70,
-        firstPrize: 1
+        firstPrize: 1,
       };
       state.result = {
-        firstPrize: []
+        firstPrize: [],
       };
       state.newLottery = [];
       state.list = [];
@@ -65,7 +65,7 @@ export default new Vuex.Store({
       setData(resultField, state.result);
     },
     setNewLottery(state, newLottery) {
-      if (state.newLottery.find(item => item.name === newLottery.name)) {
+      if (state.newLottery.find((item) => item.name === newLottery.name)) {
         return;
       }
       state.newLottery.push(newLottery);
@@ -73,8 +73,8 @@ export default new Vuex.Store({
     },
     setList(state, list) {
       const arr = state.list;
-      list.forEach(item => {
-        const arrIndex = arr.findIndex(data => data.key === item.key);
+      list.forEach((item) => {
+        const arrIndex = arr.findIndex((data) => data.key === item.key);
         if (arrIndex > -1) {
           arr[arrIndex].name = item.name;
         } else {
@@ -87,8 +87,8 @@ export default new Vuex.Store({
     },
     setPhotos(state, photos) {
       state.photos = photos;
-    }
+    },
   },
   actions: {},
-  modules: {}
+  modules: {},
 });

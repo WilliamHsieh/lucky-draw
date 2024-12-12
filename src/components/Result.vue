@@ -7,9 +7,7 @@
     :append-to-body="true"
   >
     <div class="dialog-title" slot="title">
-      <span :style="{ fontSize: '18px' }">
-        抽奖结果
-      </span>
+      <span :style="{ fontSize: '18px' }"> 抽奖结果 </span>
       <span :style="{ fontSize: '14px', color: '#999', marginLeft: '10px' }">
         (点击号码可以删除)
       </span>
@@ -19,7 +17,7 @@
       :key="index"
       class="listrow"
       @click="
-        event => {
+        (event) => {
           deleteRes(event, item);
         }
       "
@@ -28,9 +26,7 @@
         {{ item.name }}
       </span>
       <span class="value">
-        <span v-if="item.value && item.value.length === 0">
-          暂未抽奖
-        </span>
+        <span v-if="item.value && item.value.length === 0"> 暂未抽奖 </span>
         <span
           class="card"
           v-for="(data, j) in item.value"
@@ -48,7 +44,7 @@ import { conversionCategoryName, getDomData } from '@/helper/index';
 export default {
   name: 'c-Result',
   props: {
-    visible: Boolean
+    visible: Boolean,
   },
   computed: {
     result: {
@@ -57,7 +53,7 @@ export default {
       },
       set(val) {
         this.$store.commit('setResult', val);
-      }
+      },
     },
     resultList() {
       const list = [];
@@ -68,12 +64,12 @@ export default {
           list.push({
             label: key,
             name,
-            value: element
+            value: element,
           });
         }
       }
       return list;
-    }
+    },
   },
   methods: {
     deleteRes(event, row) {
@@ -84,29 +80,29 @@ export default {
       this.$confirm('此操作将移除该中奖号码，确认删除?', '警告', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning'
+        type: 'warning',
       })
         .then(() => {
           if (Index) {
             const result = this.result;
             result[row.label] = this.result[row.label].filter(
-              item => item !== Number(Index)
+              (item) => item !== Number(Index),
             );
             this.result = result;
             this.$message({
               type: 'success',
-              message: '删除成功!'
+              message: '删除成功!',
             });
           }
         })
         .catch(() => {
           this.$message({
             type: 'info',
-            message: '已取消'
+            message: '已取消',
           });
         });
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss">

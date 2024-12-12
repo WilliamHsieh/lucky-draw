@@ -24,12 +24,18 @@
     "@vue/cli-service": "^4.1.0",
     "@vue/eslint-config-prettier": "^5.0.0",
     "babel-eslint": "^10.0.3",
-    "eslint": "^5.16.0",
-    "eslint-plugin-prettier": "^3.1.1",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-vue": "^5.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.11",
     "node-sass": "^9.0.0",
-    "prettier": "^1.19.1",
+    "prettier": "^3.4.2",
     "sass-loader": "^10.1.1",
     "vue-template-compiler": "^2.6.10"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx,json,css,scss,vue}": "prettier --write"
   }
 }

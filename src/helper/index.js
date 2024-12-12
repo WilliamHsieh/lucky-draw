@@ -47,7 +47,7 @@ export function conversionCategoryName(key) {
       break;
   }
   const newLottery = getData(newLotteryField) || [];
-  const findres = newLottery.find(item => item.key === key);
+  const findres = newLottery.find((item) => item.key === key);
   if (findres) {
     name = findres.name;
   }
