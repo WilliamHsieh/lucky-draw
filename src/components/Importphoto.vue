@@ -53,20 +53,20 @@ import { database, DB_STORE_NAME } from '@/helper/db';
 export default {
   name: 'Importphoto',
   props: {
-    visible: Boolean
+    visible: Boolean,
   },
   computed: {
     config: {
       get() {
         return this.$store.state.config;
-      }
-    }
+      },
+    },
   },
   data() {
     return {
       id: 0,
       value: '',
-      filename: '点击选择照片'
+      filename: '点击选择照片',
     };
   },
   methods: {
@@ -104,14 +104,14 @@ export default {
       const Data = await database.get(DB_STORE_NAME, ID);
       const param = {
         id: ID,
-        value
+        value,
       };
       database[Data ? 'edit' : 'add'](
         DB_STORE_NAME,
         Data ? ID : param,
-        Data ? param : null
+        Data ? param : null,
       )
-        .then(res => {
+        .then((res) => {
           if (res) {
             this.$refs.uploadinput.value = '';
             this.value = '';
@@ -120,17 +120,17 @@ export default {
             this.$emit('getPhoto');
             this.$message({
               message: '保存成功',
-              type: 'success'
+              type: 'success',
             });
           } else {
             this.$message.error('保存失败');
           }
         })
-        .catch(err => {
+        .catch((err) => {
           this.$message.error(err.message);
         });
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss">

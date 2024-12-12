@@ -43,14 +43,14 @@ export default {
             title: `${label}抽奖结果:`,
             value: `${
               result[item].length > 0 ? result[item].join('、') : '暂未抽取'
-            }`
+            }`,
           });
         }
       });
 
       return message;
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss">

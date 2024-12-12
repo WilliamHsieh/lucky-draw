@@ -1,17 +1,17 @@
 const DB_STORE_NAME = 'luckydraw.GuaranteeTransaction';
 let objectStore;
-const createObjectStore = db => {
+const createObjectStore = (db) => {
   objectStore = db.createObjectStore(DB_STORE_NAME, {
     keyPath: 'id',
-    autoIncrement: true
+    autoIncrement: true,
   });
   objectStore.createIndex('id', 'id', {
-    unique: true
+    unique: true,
   });
   objectStore.createIndex('name', 'name');
 };
 
-const createObjectStoreOrder = db => {
+const createObjectStoreOrder = (db) => {
   if (!db.objectStoreNames.contains(DB_STORE_NAME)) {
     createObjectStore(db);
   } else {
@@ -22,13 +22,13 @@ const createObjectStoreOrder = db => {
 
 const DBVERSION = 1;
 const DBNAME = 'luckydraw';
-// 数据库：IDBDatabase 对象
-// 对象仓库：IDBObjectStore 对象
+// 数据库： IDBDatabase 对象
+// 对象仓库： IDBObjectStore 对象
 // 索引： IDBIndex 对象
 // 事务： IDBTransaction 对象
-// 操作请求：IDBRequest 对象
+// 操作请求： IDBRequest 对象
 // 指针： IDBCursor 对象
-// 主键集合：IDBKeyRange 对象
+// 主键集合： IDBKeyRange 对象
 let db;
 class LuckydrawIndecDB {
   constructor() {
@@ -37,25 +37,25 @@ class LuckydrawIndecDB {
   add = (TableName, newItem) => {
     const addInfo = {
       createdTime: Date.now(),
-      updateTime: Date.now()
+      updateTime: Date.now(),
     };
     return new Promise((resolve, reject) => {
       const transaction = db.transaction([TableName], 'readwrite');
       const objectStore = transaction.objectStore(TableName);
       const objectStoreRequest = objectStore.add(
-        Object.assign({}, addInfo, newItem)
+        Object.assign({}, addInfo, newItem),
       );
       objectStoreRequest.onsuccess = () => {
         resolve(true);
       };
-      objectStoreRequest.onerror = error => {
+      objectStoreRequest.onerror = (error) => {
         reject(error.target.error);
       };
     });
   };
   edit = (TableName, id, data) => {
     const editInfo = {
-      updateTime: Date.now()
+      updateTime: Date.now(),
     };
     return new Promise((resolve, reject) => {
       const transaction = db.transaction([TableName], 'readwrite');
@@ -69,12 +69,12 @@ class LuckydrawIndecDB {
           }
         }
         const objectStoreRequestGetRes = objectStore.put(
-          Object.assign({}, myRecord, editInfo)
+          Object.assign({}, myRecord, editInfo),
         );
         objectStoreRequestGetRes.onsuccess = () => {
           resolve(true);
         };
-        objectStoreRequestGetRes.onerror = error => {
+        objectStoreRequestGetRes.onerror = (error) => {
           reject(error);
         };
       };
@@ -89,13 +89,13 @@ class LuckydrawIndecDB {
       objectStoreRequest.onsuccess = () => {
         resolve(true);
       };
-      objectStoreRequest.onerror = error => {
+      objectStoreRequest.onerror = (error) => {
         reject(error);
       };
     });
   };
 
-  clear = TableName => {
+  clear = (TableName) => {
     return new Promise((resolve, reject) => {
       const objectStore = db
         .transaction([TableName], 'readwrite')
@@ -104,13 +104,13 @@ class LuckydrawIndecDB {
       objectStoreRequest.onsuccess = () => {
         resolve(true);
       };
-      objectStoreRequest.onerror = error => {
+      objectStoreRequest.onerror = (error) => {
         reject(error);
       };
     });
   };
 
-  count = TableName => {
+  count = (TableName) => {
     return new Promise((resolve, reject) => {
       const objectStore = db
         .transaction([TableName], 'readwrite')
@@ -119,7 +119,7 @@ class LuckydrawIndecDB {
       objectStoreRequest.onsuccess = () => {
         resolve(objectStoreRequest.result);
       };
-      objectStoreRequest.onerror = error => {
+      objectStoreRequest.onerror = (error) => {
         reject(error);
       };
     });
@@ -132,7 +132,7 @@ class LuckydrawIndecDB {
       objectStoreRequest.onsuccess = () => {
         resolve(objectStoreRequest.result);
       };
-      objectStoreRequest.onerror = error => {
+      objectStoreRequest.onerror = (error) => {
         reject(error);
       };
     });
@@ -145,32 +145,32 @@ class LuckydrawIndecDB {
       objectStoreRequest.onsuccess = () => {
         resolve(objectStoreRequest.result);
       };
-      objectStoreRequest.onerror = error => {
+      objectStoreRequest.onerror = (error) => {
         reject(error);
       };
     });
   };
 
-  getAll = TableName => {
+  getAll = (TableName) => {
     return new Promise((resolve, reject) => {
       const objectStore = db.transaction(TableName).objectStore(TableName);
       const objectStoreRequest = objectStore.getAll();
       objectStoreRequest.onsuccess = () => {
         resolve(objectStoreRequest.result);
       };
-      objectStoreRequest.onerror = error => {
+      objectStoreRequest.onerror = (error) => {
         reject(error);
       };
     });
   };
 
-  onerror = event => {
+  onerror = (event) => {
     console.log('db-connection-fail', event);
   };
   InitIndexedDB = () => {
     const DBOpenRequest = window.indexedDB.open(DBNAME, DBVERSION);
     // 数据库打开失败
-    DBOpenRequest.onerror = event => {
+    DBOpenRequest.onerror = (event) => {
       this.onerror(event);
     };
 

@@ -38,7 +38,7 @@ export function luckydrawHandler(total, won = [], num) {
   const wons = won;
   const res = [];
   for (let j = 0; j < num; j++) {
-    const nodraws = peolist.filter(item => !wons.includes(item));
+    const nodraws = peolist.filter((item) => !wons.includes(item));
     const current = nodraws[randomNum(1, nodraws.length) - 1];
     res.push(current);
     wons.push(current);
