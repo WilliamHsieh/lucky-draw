@@ -114,8 +114,8 @@
 import LotteryConfig from '@/components/LotteryConfig';
 import Publicity from '@/components/Publicity';
 import Tool from '@/components/Tool';
-import bgaudio from '@/assets/bg.mp3';
-import beginaudio from '@/assets/begin.mp3';
+import bgaudio from '@/assets/bg.wav';
+import beginaudio from '@/assets/begin.wav';
 import {
   getData,
   configField,
