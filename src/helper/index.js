@@ -34,14 +34,14 @@ export function getDomData(element, dataName) {
 }
 
 export const configField = 'config'; // 配置数据
-export const resultField = 'result'; // 抽奖结果
+export const resultField = 'result'; // 抽獎結果
 export const newLotteryField = 'newLottery'; // 新增奖项
 export const listField = 'list'; // 名单
 export function conversionCategoryName(key) {
   let name = '';
   switch (key) {
     case 'firstPrize':
-      name = '一等奖';
+      name = '一等獎';
       break;
     default:
       break;

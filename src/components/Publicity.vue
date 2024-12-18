@@ -40,9 +40,9 @@ export default {
         if (result[item] && config[item] > 0) {
           message.push({
             key: index + 1,
-            title: `${label}抽奖结果:`,
+            title: `${label}抽獎結果:`,
             value: `${
-              result[item].length > 0 ? result[item].join('、') : '暂未抽取'
+              result[item].length > 0 ? result[item].join('、') : '暫未抽取'
             }`
           });
         }
@@ -57,7 +57,7 @@ export default {
 .c-Publicity {
   height: 100%;
   // width: 1000px;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(252, 190, 124, 0.4);
   margin: 0 auto;
   position: relative;
   overflow: hidden;
@@ -77,7 +77,7 @@ export default {
     }
     &.actiname {
       .title {
-        color: red;
+        color: #ffedb6;
         font-size: 20px;
       }
     }
