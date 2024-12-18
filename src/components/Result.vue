@@ -112,15 +112,14 @@ export default {
     },
     mappingNumToName(num) {
       const list = this.$store.state.list;
-      console.log('list', list);
       // list is a array with objects, object would be {'key': number, 'name': string}
-      const item = list.find((item) => item.key === num);
+      const item = list.find(item => item.key === num);
       if (item) {
         return item.name;
       }
       return num;
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss">
