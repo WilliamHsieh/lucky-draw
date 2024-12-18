@@ -3,10 +3,10 @@
     <header>
       <Publicity v-show="!running" />
       <el-button class="res" type="text" @click="showResult = true">
-        抽奖结果
+        抽獎結果
       </el-button>
       <el-button class="con" type="text" @click="showConfig = true">
-        抽奖配置
+        抽獎設定
       </el-button>
     </header>
     <div id="main" :class="{ mask: showRes }"></div>
@@ -27,7 +27,7 @@
     </div>
     <transition name="bounce">
       <div id="resbox" v-show="showRes">
-        <p @click="showRes = false">{{ categoryName }}抽奖结果：</p>
+        <p @click="showRes = false">{{ categoryName }}抽獎結果：</p>
         <div class="container">
           <span
             v-for="item in resArr"
@@ -296,13 +296,14 @@ export default {
       canvas.width = document.body.offsetWidth;
       canvas.height = document.body.offsetHeight;
       canvas.id = 'rootcanvas';
+      //canvas.classList.add('custom-canvas');
       this.$el.querySelector('#main').appendChild(canvas);
     },
     startTagCanvas() {
       this.createCanvas();
       const { speed } = this;
       window.TagCanvas.Start('rootcanvas', 'tags', {
-        textColour: null,
+        textColour: '#fe9440',
         initial: speed(),
         dragControl: 1,
         textHeight: 20,
@@ -393,9 +394,11 @@ export default {
       padding: 0;
       z-index: 9999;
       &.con {
+        color: #ccc;
         right: 20px;
       }
       &.res {
+        color: #ccc;
         right: 100px;
       }
     }
@@ -431,6 +434,8 @@ export default {
   }
 }
 #main {
+  background-image: url('./assets/background.png');
+  background-size: 100% 100%;
   height: 100%;
 }
 
@@ -442,8 +447,8 @@ export default {
   transform: translateX(-50%) translateY(-50%);
   text-align: center;
   p {
-    color: red;
-    font-size: 50px;
+    color: black;
+    font-size: 80px;
     line-height: 120px;
   }
   .container {
