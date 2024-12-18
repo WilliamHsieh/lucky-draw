@@ -12,6 +12,18 @@
     <el-button size="mini" @click="showImportphoto = true">
       匯入照片
     </el-button>
+    <el-button size="mini" @click="triggerFileInput">
+      匯入 blocklist
+    </el-button>
+    <el-button size="mini" @click="resetImportedCsvData">
+      重置 blocklist
+    </el-button>
+    <input
+      type="file"
+      ref="fileInput"
+      @change="handleFileChange"
+      style="display: none;"
+    />
     <el-dialog
       :append-to-body="true"
       :visible.sync="showSetwat"
@@ -141,6 +153,9 @@ import {
 } from '@/helper/index';
 import Importphoto from './Importphoto';
 import { database, DB_STORE_NAME } from '@/helper/db';
+import { parse } from 'papaparse';
+
+const blocklistName = 'blocklist';
 
 export default {
   props: {
@@ -207,6 +222,63 @@ export default {
     }
   },
   methods: {
+    triggerFileInput() {
+      this.$refs.fileInput.click();
+    },
+    handleFileChange(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          const csv = e.target.result;
+          this.convertCsvToJson(csv);
+        };
+        reader.readAsText(file);
+      }
+    },
+    convertCsvToJson(csv) {
+      parse(csv, {
+        header: true,
+        complete: results => {
+          const newJson = results.data;
+          const existingData =
+            JSON.parse(localStorage.getItem(blocklistName)) || [];
+
+          // Create a map of existing data by id
+          const existingDataMap = new Map(
+            existingData.map(item => [item.id, item])
+          );
+
+          // Merge new data with existing data
+          newJson.forEach(item => {
+            if (existingDataMap.has(item.id)) {
+              Object.assign(existingDataMap.get(item.id), item);
+            } else {
+              existingDataMap.set(item.id, item);
+            }
+          });
+
+          // Convert the map back to an array
+          const mergedData = Array.from(existingDataMap.values());
+
+          localStorage.setItem(blocklistName, JSON.stringify(mergedData));
+          this.$message({
+            message: 'CSV import successfully',
+            type: 'success'
+          });
+        },
+        error: error => {
+          this.$message.error('CSV import failed: ' + error.message);
+        }
+      });
+    },
+    resetImportedCsvData() {
+      localStorage.removeItem(blocklistName);
+      this.$message({
+        message: 'imported CSV data reset successfully',
+        type: 'success'
+      });
+    },
     resetConfig() {
       const type = this.removeInfo.type;
       this.$confirm('此操作將重置所選數據，是否繼續?', '提示', {

@@ -348,11 +348,14 @@ export default {
         } else if (mode === 99) {
           num = qty;
         }
-        const resArr = luckydrawHandler(
-          number,
-          allin ? [] : this.allresult,
-          num
-        );
+
+        // set blocklist
+        const blocklistName = 'blocklist';
+        const blocklist = JSON.parse(localStorage.getItem(blocklistName)) || [];
+        const blockIds = blocklist.map(item => parseInt(item.id, 10));
+        const wons = blockIds.concat(this.allresult);
+
+        const resArr = luckydrawHandler(number, allin ? [] : wons, num);
         this.resArr = resArr;
 
         this.category = category;
